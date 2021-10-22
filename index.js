@@ -1,8 +1,11 @@
+const todoList = []
 document.addEventListener('DOMContentLoaded', () => {
     let form = document.querySelector('form')
     form.addEventListener('submit', e => {
         e.preventDefault();
-        buildToDo(e.target.new_todo.value);
+        const description = e.target.new_todo.value
+        const priority = e.target.priority_select.value
+        buildToDo(priority,description);
         form.reset();
     })
     const edit = document.querySelector('#edit')
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function buildToDo(toDo) {
+function buildToDo(priority_level,toDo) {
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.setAttribute("class","todo_box")
@@ -42,8 +45,18 @@ function buildToDo(toDo) {
 
     const listItem = document.createElement("li")
     listItem.appendChild(label)
+    listItem.setAttribute("class",priority_level)
 
-    document.getElementById("todo_list").appendChild(listItem);
+    
+
+    todoList.push([priority_level,listItem])
+    displayToDoList();
+}
+
+function displayToDoList(){
+    for(const todo of todoList){
+        document.getElementById("todo_list").appendChild(todo[1]);
+    }
 
 }
 
@@ -51,7 +64,7 @@ function deletToDoItem(){
     const checkedItems = document.getElementsByClassName("todo_box")
     for(const checkedItem of checkedItems){
         if(checkedItem.checked === true){
-            console.log(checkedItem.parentNode.remove())
+            checkedItem.parentNode.remove()
         }
     }
 }

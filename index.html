@@ -20,6 +20,12 @@
             <form id="todo_form" action="#" method="POST">
                 <div class="field">
                     <input id="new_todo" type="text" placeholder="New To Do" />
+                    <select name="priority" id="priority_select">
+                        <option value="">--Set Priority--</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
                     <input type="submit" class="btn" value="+" />
                 </div>
             </form>
