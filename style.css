@@ -1,7 +1,87 @@
-ul{
+body {
+    background-image: url("./images/notepad.jpg");
+    width: 100vw;
+    height: 100vw;
+}
+
+header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #333;
+    background: rgba(8, 192, 39, 0.4);
+    padding: 15px 20px 18px 18px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #333;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px 20px 18px 18px;
+}
+
+#todo_container {
+    margin: 10px;
+    border: 1px solid #333;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 15px 20px 18px 18px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #333;
+}
+
+#due_date_label {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+head h1 {
+    text-align: center;
+}
+
+#todos {
+    order: 2;
+}
+
+ul {
     list-style-type: none;
     display: block;
 }
-li.low{
-    color: rgb(241, 6, 6);
+
+.btn {
+    border: 1px solid #333;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px #333;
+}
+
+li.low {
+    color: white;
+    background-color: #019429;
+    border: 1px solid #333;
+    padding: 10px 25px 12px 12px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #333;
+}
+
+li.medium {
+    color: black;
+    background-color: #ffd000;
+    border: 1px solid #333;
+    padding: 10px 25px 12px 12px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #333;
+}
+
+li.high {
+    color: White;
+    background-color: #eb0510;
+    border: 1px solid #333;
+    padding: 10px 25px 12px 12px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #333;
 }

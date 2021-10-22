@@ -13,7 +13,6 @@
 <body>
     <header>
         <h1>McElhinney ToDo</h1>
-        <h2>ToDo List: <span class="todo_title">Home</span</h2>
     </header>
     <div class="container">
         <div id="todos">
@@ -26,27 +25,25 @@
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
+                    <label for='due_date' id="due_date_label">Due Date</label>
+                    <input type="date" name="due_date" id="dueDate">
                     <input id="submit" type="submit" class="btn" value="+" />
                 </div>
-                <div>
-                    <label for='due_date' id="due_date_label">Due Date</label>
-                    <input type="date" name = "due_date" id="dueDate">
-                </div>
-            </form>          
+            </form>
             <div id="todo_container">
                 <div>
                     <h3 class="todo_title">ToDo's</h3>
                     <ul id="todo_list">
                     </ul>
                 </div>
+                <div>
+                    <button class="btn" id="edit"> Edit </button>
+                    <button id="save_edit" class="btn" style="display: none;" onclick="">Save</button>
+                    <button class="btn" id="remove"> Remove Checked</button>
+                </div>
             </div>
         </div>
     </div>
-    <footer>
-            <button class="btn" id="edit"> Edit </button>
-            <button id="save_edit" class="btn" style="display: none;" onclick="">Save</button>
-        <button class="btn" id="remove"> Remove Checked</button>
-    </footer>
 </body>
 
 </html>

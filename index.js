@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const Date = e.target.dueDate.value
         if (Date === "") {
             dateItemIsDue = "0"
-        }
-        else {
+        } else {
             const dateSplit = Date.split("-")
             const newDate = [dateSplit[1], dateSplit[2], dateSplit[0]]
             dateItemIsDue = newDate.join("/")
@@ -70,7 +69,8 @@ function deletToDoItem() {
     const checkedItems = document.getElementsByClassName("todo_box")
     for (const checkedItem of checkedItems) {
         if (checkedItem.checked === true) {
-            checkedItem.parentNode.remove()
+            const labelOfItem = checkedItem.parentNode
+            labelOfItem.parentNode.remove()
         }
     }
 }
@@ -97,9 +97,8 @@ function editToDo() {
         form.new_todo.value = itemToEdit[1].innerText
         form.priority_select.value = itemToEdit[0]
         form.dueDate.value = itemToEdit[2]
-        document.getElementById("save_edit").onclick = function () { SaveEdit(indexOfItem) }
-    }
-    else {
+        document.getElementById("save_edit").onclick = function() { SaveEdit(indexOfItem) }
+    } else {
         document.getElementById("submit").style.display = "inline"
         document.getElementById("save_edit").style.display = "none"
     }
