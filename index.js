@@ -45,7 +45,7 @@ function buildToDo(priority_level, toDo, dateItemIsDue) {
     if (dateItemIsDue === "0") {
         labelText.innerText = toDo
     } else {
-        labelText.innerText = toDo + " .............Due: " + dateItemIsDue
+        labelText.innerText = toDo + " , Due: " + dateItemIsDue
     }
 
     label.appendChild(checkbox)
@@ -94,12 +94,18 @@ function editToDo() {
         const itemToEdit = todoList.find(arr => arr[1].innerText === editItems[0])
         const indexOfItem = todoList.indexOf(itemToEdit);
         const form = document.querySelector('form')
-        form.new_todo.value = itemToEdit[1].innerText
+
+        const oldDescription = (itemToEdit[1].innerText).split(",")
+
+        form.new_todo.value = oldDescription[0]
+
         form.priority_select.value = itemToEdit[0]
+
         const dateToInput = itemToEdit[2]
         const dateToInputSplit = dateToInput.split("/")
         const newDateToInput = [dateToInputSplit[2], dateToInputSplit[0], dateToInputSplit[1]].join("-")
         form.dueDate.value = newDateToInput
+
         document.getElementById("save_edit").onclick = function() { SaveEdit(indexOfItem) }
     } else {
         document.getElementById("submit").style.display = "inline"
