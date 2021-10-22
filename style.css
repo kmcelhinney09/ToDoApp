@@ -1,5 +1,6 @@
 ul{
     list-style-type: none;
+    display: block;
 }
 li.low{
     color: rgb(241, 6, 6);

@@ -2,12 +2,21 @@ const todoList = []
 const editItems = []
 document.addEventListener('DOMContentLoaded', () => {
     let form = document.querySelector('form')
+    let dateItemIsDue = "";
     form.addEventListener('submit', e => {
         e.preventDefault();
         const description = e.target.new_todo.value
         const priority = e.target.priority_select.value
-        const dueDate = e.target.dueDate.value
-        todoList.push(buildToDo(priority, description, dueDate))
+        const Date = e.target.dueDate.value
+        if (Date === "") {
+            dateItemIsDue = "0"
+        }
+        else {
+            const dateSplit = Date.split("-")
+            const newDate = [dateSplit[1], dateSplit[2], dateSplit[0]]
+            dateItemIsDue = newDate.join("/")
+        }
+        todoList.push(buildToDo(priority, description, dateItemIsDue))
         displayToDoList()
         form.reset();
     })
@@ -17,8 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     edit.addEventListener('click', () => {
         createEditToDoList()
-        // unedit.style.display = "inline";
-        // edit.style.display = "none"
     });
 
     remove.addEventListener('click', () => {
@@ -26,14 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function buildToDo(priority_level, toDo, dueDate) {
+function buildToDo(priority_level, toDo, dateItemIsDue) {
+    if (priority_level === "") {
+        priority_level = "low"
+    }
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.setAttribute("class", "todo_box")
 
     const label = document.createElement("label")
     const labelText = document.createElement("span")
-    labelText.textContent = toDo
+    if (dateItemIsDue === "0") {
+        labelText.innerText = toDo
+    } else {
+        labelText.innerText = toDo + " .............Due: " + dateItemIsDue
+    }
 
     label.appendChild(checkbox)
     label.appendChild(labelText)
@@ -42,10 +56,7 @@ function buildToDo(priority_level, toDo, dueDate) {
     listItem.appendChild(label)
     listItem.setAttribute("class", priority_level)
 
-
-
-    
-    return [priority_level, listItem, dueDate]
+    return [priority_level, listItem, dateItemIsDue]
 }
 
 function displayToDoList() {
@@ -86,9 +97,9 @@ function editToDo() {
         form.new_todo.value = itemToEdit[1].innerText
         form.priority_select.value = itemToEdit[0]
         form.dueDate.value = itemToEdit[2]
-        document.getElementById("save_edit").onclick = function(){SaveEdit(indexOfItem)}
+        document.getElementById("save_edit").onclick = function () { SaveEdit(indexOfItem) }
     }
-    else{
+    else {
         document.getElementById("submit").style.display = "inline"
         document.getElementById("save_edit").style.display = "none"
     }
@@ -99,8 +110,8 @@ function SaveEdit(indexOfItem) {
     const desc = form.new_todo.value
     const priority = form.priority_select.value
     const dueDate = form.dueDate.value
-    const updatedToDo = [priority,desc,dueDate]
-    todoList.splice(indexOfItem,1,buildToDo(priority,desc,dueDate))
+    const updatedToDo = [priority, desc, dueDate]
+    todoList.splice(indexOfItem, 1, buildToDo(priority, desc, dueDate))
     editItems.shift()
     form.reset()
     deletToDoItem()
