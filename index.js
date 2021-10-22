@@ -1,4 +1,5 @@
 const todoList = []
+const editItems = []
 document.addEventListener('DOMContentLoaded', () => {
     let form = document.querySelector('form')
     form.addEventListener('submit', e => {
@@ -6,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = e.target.new_todo.value
         const priority = e.target.priority_select.value
         const dueDate = e.target.dueDate.value
-        buildToDo(priority,description,dueDate);
+        todoList.push(buildToDo(priority, description, dueDate))
+        displayToDoList()
         form.reset();
     })
     const edit = document.querySelector('#edit')
@@ -14,28 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const remove = document.querySelector('#remove')
 
     edit.addEventListener('click', () => {
-        let deleteStatus = buildDeleteBtn()
-        if (deleteStatus == true) {
-            unedit.style.display = "inline";
-            edit.style.display = "none"
-        }
+        createEditToDoList()
+        // unedit.style.display = "inline";
+        // edit.style.display = "none"
     });
 
     unedit.addEventListener('click', () => {
-        destoryDeleteBtn()
         unedit.style.display = "none";
         edit.style.display = "inline"
     });
 
-    remove.addEventListener('click', () =>{
+    remove.addEventListener('click', () => {
         deletToDoItem();
     })
 })
 
-function buildToDo(priority_level,toDo,dueDate) {
+function buildToDo(priority_level, toDo, dueDate) {
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
-    checkbox.setAttribute("class","todo_box")
+    checkbox.setAttribute("class", "todo_box")
 
     const label = document.createElement("label")
     const labelText = document.createElement("span")
@@ -46,26 +45,70 @@ function buildToDo(priority_level,toDo,dueDate) {
 
     const listItem = document.createElement("li")
     listItem.appendChild(label)
-    listItem.setAttribute("class",priority_level)
+    listItem.setAttribute("class", priority_level)
+
+
 
     
-
-    todoList.push([priority_level,listItem,dueDate])
-    displayToDoList();
+    return [priority_level, listItem, dueDate]
 }
 
-function displayToDoList(){
-    for(const todo of todoList){
+function displayToDoList() {
+    for (const todo of todoList) {
         document.getElementById("todo_list").appendChild(todo[1]);
     }
 
 }
 
-function deletToDoItem(){
+function deletToDoItem() {
     const checkedItems = document.getElementsByClassName("todo_box")
-    for(const checkedItem of checkedItems){
-        if(checkedItem.checked === true){
+    for (const checkedItem of checkedItems) {
+        if (checkedItem.checked === true) {
             checkedItem.parentNode.remove()
         }
     }
+}
+
+function createEditToDoList() {
+
+    const checkedItems = document.getElementsByClassName("todo_box")
+    for (const checkedItem of checkedItems) {
+        if (checkedItem.checked === true) {
+            editItems.push(checkedItem.nextElementSibling.outerText);
+        }
+    }
+    editToDo();
+
+}
+
+function editToDo() {
+    if (editItems.length > 0) {
+        document.getElementById("submit").style.display = "none"
+        document.getElementById("save_edit").style.display = "inline"
+        const itemToEdit = todoList.find(arr => arr[1].innerText === editItems[0])
+        const indexOfItem = todoList.indexOf(itemToEdit);
+        const form = document.querySelector('form')
+        form.new_todo.value = itemToEdit[1].innerText
+        form.priority_select.value = itemToEdit[0]
+        form.dueDate.value = itemToEdit[2]
+        document.getElementById("save_edit").onclick = function(){SaveEdit(indexOfItem)}
+    }
+    else{
+        document.getElementById("submit").style.display = "inline"
+        document.getElementById("save_edit").style.display = "none"
+    }
+}
+
+function SaveEdit(indexOfItem) {
+    const form = document.querySelector('form')
+    const desc = form.new_todo.value
+    const priority = form.priority_select.value
+    const dueDate = form.dueDate.value
+    const updatedToDo = [priority,desc,dueDate]
+    todoList.splice(indexOfItem,1,buildToDo(priority,desc,dueDate))
+    editItems.shift()
+    form.reset()
+    deletToDoItem()
+    displayToDoList()
+    editToDo()
 }
