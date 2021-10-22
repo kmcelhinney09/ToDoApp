@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
         buildToDo(e.target.new_todo.value);
         form.reset();
     })
-    let edit = document.querySelector('#edit')
-    let unedit = document.querySelector('#unedit')
+    const edit = document.querySelector('#edit')
+    const unedit = document.querySelector('#unedit')
+    const remove = document.querySelector('#remove')
 
     edit.addEventListener('click', () => {
         let deleteStatus = buildDeleteBtn()
@@ -21,11 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         unedit.style.display = "none";
         edit.style.display = "inline"
     });
+
+    remove.addEventListener('click', () =>{
+        deletToDoItem();
+    })
 })
 
 function buildToDo(toDo) {
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
+    checkbox.setAttribute("class","todo_box")
 
     const label = document.createElement("label")
     const labelText = document.createElement("span")
@@ -41,34 +47,11 @@ function buildToDo(toDo) {
 
 }
 
-function buildDeleteBtn() {
-    const todoItems = document.querySelectorAll('.todo_item');
-    if (todoItems.length > 0) {
-        for (const item of todoItems) {
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'X';
-            deleteBtn.addEventListener('click', handleDeleteToDo)
-            item.appendChild(deleteBtn);
-        }
-        return true
-    }
-    else {
-        alert("Must have ToDo items to edit them")
-        return false
-    }
-}
-
-function destoryDeleteBtn() {
-    const todoItems = document.querySelectorAll('.todo_item');
-    if (todoItems.length > 0) {
-        for (const item of todoItems) {
-            item.lastChild.remove();
+function deletToDoItem(){
+    const checkedItems = document.getElementsByClassName("todo_box")
+    for(const checkedItem of checkedItems){
+        if(checkedItem.checked === true){
+            console.log(checkedItem.parentNode.remove())
         }
     }
-    else {
-        alert("No Items to unedit")
-    }
-}
-function handleDeleteToDo(e) {
-    e.target.parentNode.remove();
 }
