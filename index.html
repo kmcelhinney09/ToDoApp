@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McElhinney ToDO</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./src/index.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>McElhinney ToDo</h1>
+    </header>
+    <div class="container">
+        <div id="todos">
+            <form id="todo_form">
+                <div class="field">
+                    <input id="new_todo_list" type="text" placeholder="New ToDo List" />
+                    <input type="submit" class="btn" value="+" />
+                </div>
+            </form>
+            <div id="todo_list_container">
+                <div>
+                    <h2>ToDo Lists:</h2>
+                    <ul id="list_todos">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <button class="btn" id="remove_list"> Remove Checked</button>
+    </footer>
+</body>
+
+</html>
