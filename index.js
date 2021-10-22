@@ -21,11 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // edit.style.display = "none"
     });
 
-    unedit.addEventListener('click', () => {
-        unedit.style.display = "none";
-        edit.style.display = "inline"
-    });
-
     remove.addEventListener('click', () => {
         deletToDoItem();
     })
