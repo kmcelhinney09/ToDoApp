@@ -96,7 +96,10 @@ function editToDo() {
         const form = document.querySelector('form')
         form.new_todo.value = itemToEdit[1].innerText
         form.priority_select.value = itemToEdit[0]
-        form.dueDate.value = itemToEdit[2]
+        const dateToInput = itemToEdit[2]
+        const dateToInputSplit = dateToInput.split("/")
+        const newDateToInput = [dateToInputSplit[2], dateToInputSplit[0], dateToInputSplit[1]].join("-")
+        form.dueDate.value = newDateToInput
         document.getElementById("save_edit").onclick = function() { SaveEdit(indexOfItem) }
     } else {
         document.getElementById("submit").style.display = "inline"
