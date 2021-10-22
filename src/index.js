@@ -29,7 +29,7 @@ function displayList(Title){
         checkbox.setAttribute("class","todo_box")
         
         const labelText = document.createElement("a");
-        labelText.href = "./todoList.html?name=                " + Title
+        labelText.href = "./todoList.html?name=" + Title
         labelText.textContent = Title;
         
         const displayListLabel = document.createElement("label");
