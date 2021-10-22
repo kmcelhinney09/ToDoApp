@@ -2,19 +2,11 @@ const todoList = []
 const editItems = []
 document.addEventListener('DOMContentLoaded', () => {
     let form = document.querySelector('form')
-    let dateItemIsDue = "";
     form.addEventListener('submit', e => {
         e.preventDefault();
         const description = e.target.new_todo.value
         const priority = e.target.priority_select.value
-        const Date = e.target.dueDate.value
-        if (Date === "") {
-            dateItemIsDue = "0"
-        } else {
-            const dateSplit = Date.split("-")
-            const newDate = [dateSplit[1], dateSplit[2], dateSplit[0]]
-            dateItemIsDue = newDate.join("/")
-        }
+        const dateItemIsDue = e.target.dueDate.value
         todoList.push(buildToDo(priority, description, dateItemIsDue))
         displayToDoList()
         form.reset();
@@ -42,12 +34,14 @@ function buildToDo(priority_level, toDo, dateItemIsDue) {
 
     const label = document.createElement("label")
     const labelText = document.createElement("span")
-    if (dateItemIsDue === "0") {
+    if (dateItemIsDue === "") {
         labelText.innerText = toDo
     } else {
-        labelText.innerText = toDo + " , Due: " + dateItemIsDue
+        const dateSplit = dateItemIsDue.split("-")
+        const newDate = [dateSplit[1], dateSplit[2], dateSplit[0]]
+        newDateItemIsDue = newDate.join("/")
+        labelText.innerText = toDo + " , Due: " + newDateItemIsDue
     }
-
     label.appendChild(checkbox)
     label.appendChild(labelText)
 
@@ -55,7 +49,7 @@ function buildToDo(priority_level, toDo, dateItemIsDue) {
     listItem.appendChild(label)
     listItem.setAttribute("class", priority_level)
 
-    return [priority_level, listItem, dateItemIsDue]
+    return [priority_level, listItem, newDateItemIsDue]
 }
 
 function displayToDoList() {
@@ -114,7 +108,6 @@ function editToDo() {
 }
 
 function SaveEdit(indexOfItem) {
-    console.log("Save has been called")
     let dateDue = ""
     const form = document.querySelector('form')
     const desc = form.new_todo.value
