@@ -105,12 +105,18 @@ function editToDo() {
 }
 
 function SaveEdit(indexOfItem) {
+    console.log("Save has been called")
+    let dateDue = ""
     const form = document.querySelector('form')
     const desc = form.new_todo.value
     const priority = form.priority_select.value
-    const dueDate = form.dueDate.value
-    const updatedToDo = [priority, desc, dueDate]
-    todoList.splice(indexOfItem, 1, buildToDo(priority, desc, dueDate))
+    const dueDateOfItem = form.dueDate.value
+    if (dueDateOfItem === "") {
+        dateDue = "0"
+    } else {
+        dateDue = dueDateOfItem;
+    }
+    todoList.splice(indexOfItem, 1, buildToDo(priority, desc, dateDue))
     editItems.shift()
     form.reset()
     deletToDoItem()
