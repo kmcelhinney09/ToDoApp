@@ -1,49 +1,74 @@
-let todoLists = [];
-const listToDisplay = [];
 document.addEventListener('DOMContentLoaded', () => {
-    let form = document.querySelector('#todo_form')
+    let form = document.querySelector('form')
     form.addEventListener('submit', e => {
         e.preventDefault();
-        createToDoList(e.target.new_todo_list.value)
+        buildToDo(e.target.new_todo.value);
         form.reset();
     })
-    document.getElementById("remove_list").addEventListener('click',() =>{
-        deleteTodoList();
-    })
-    document.getElementById("remove").addEventListener('click',() =>{
-        deleteTodoList();
-    })
+    let edit = document.querySelector('#edit')
+    let unedit = document.querySelector('#unedit')
+
+    edit.addEventListener('click', () => {
+        let deleteStatus = buildDeleteBtn()
+        if (deleteStatus == true) {
+            unedit.style.display = "inline";
+            edit.style.display = "none"
+        }
+    });
+
+    unedit.addEventListener('click', () => {
+        destoryDeleteBtn()
+        unedit.style.display = "none";
+        edit.style.display = "inline"
+    });
 })
 
-function createToDoList(todoListTitle) {
-    const todoList = {
-        title: todoListTitle,
-        todos: []
+function buildToDo(toDo) {
+    const checkbox = document.createElement("input")
+    checkbox.type = "checkbox"
+
+    const label = document.createElement("label")
+    const labelText = document.createElement("span")
+    labelText.textContent = toDo
+
+    label.appendChild(checkbox)
+    label.appendChild(labelText)
+
+    const listItem = document.createElement("li")
+    listItem.appendChild(label)
+
+    document.getElementById("todo_list").appendChild(listItem);
+
+}
+
+function buildDeleteBtn() {
+    const todoItems = document.querySelectorAll('.todo_item');
+    if (todoItems.length > 0) {
+        for (const item of todoItems) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'X';
+            deleteBtn.addEventListener('click', handleDeleteToDo)
+            item.appendChild(deleteBtn);
+        }
+        return true
     }
-    todoLists.push(todoList)
-    displayList(todoListTitle)
-    console.log(todoLists)
+    else {
+        alert("Must have ToDo items to edit them")
+        return false
+    }
 }
 
-function displayList(Title){
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.setAttribute("class","todo_box")
-        
-        const labelText = document.createElement("a");
-        labelText.href = `./todoList.html?name=${Title}`
-        labelText.textContent = Title;
-        
-        const displayListLabel = document.createElement("label");
-        displayListLabel.appendChild(checkbox);
-        displayListLabel.appendChild(labelText);
-
-        const listItem = document.createElement("li");
-        listItem.appendChild(displayListLabel)
-        document.querySelector("#list_todos").appendChild(listItem);
+function destoryDeleteBtn() {
+    const todoItems = document.querySelectorAll('.todo_item');
+    if (todoItems.length > 0) {
+        for (const item of todoItems) {
+            item.lastChild.remove();
+        }
+    }
+    else {
+        alert("No Items to unedit")
+    }
 }
-
-
-function deleteTodoList(){
-    console.log( document.getElementsByClassName("todo_box")[0].checked)
+function handleDeleteToDo(e) {
+    e.target.parentNode.remove();
 }
