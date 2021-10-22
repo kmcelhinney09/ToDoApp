@@ -1,8 +1,7 @@
-const todoLists = [];
+let todoLists = [];
 const listToDisplay = [];
-
 document.addEventListener('DOMContentLoaded', () => {
-    let form = document.querySelector('form')
+    let form = document.querySelector('#todo_form')
     form.addEventListener('submit', e => {
         e.preventDefault();
         createToDoList(e.target.new_todo_list.value)
@@ -11,16 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("remove_list").addEventListener('click',() =>{
         deleteTodoList();
     })
+    document.getElementById("remove").addEventListener('click',() =>{
+        deleteTodoList();
+    })
 })
 
 function createToDoList(todoListTitle) {
-    todoLists.push(
-        {
-            title: todoListTitle,
-            todos: []
-        }
-    )
+    const todoList = {
+        title: todoListTitle,
+        todos: []
+    }
+    todoLists.push(todoList)
     displayList(todoListTitle)
+    console.log(todoLists)
 }
 
 function displayList(Title){

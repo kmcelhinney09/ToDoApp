@@ -7,32 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McElhinney ToDO</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./src/index.js" defer></script>
+    <script type="text/javascript" src="./index.js" defer></script>
 </head>
 
 <body>
     <header>
         <h1>McElhinney ToDo</h1>
+        <h2>ToDo List: <span class="todo_title">Home</span</h2>
     </header>
     <div class="container">
         <div id="todos">
             <form id="todo_form">
                 <div class="field">
-                    <input id="new_todo_list" type="text" placeholder="New ToDo List" />
+                    <input id="new_todo" type="text" placeholder="New To Do" />
                     <input type="submit" class="btn" value="+" />
                 </div>
             </form>
-            <div id="todo_list_container">
+            <div id="edit_btns">
+                <button class="btn" id="edit"> Edit </button>
+                <button class="btn" id="unedit" style="display: inline;"> Exit Edit </button>
+                <div id="edit_hidden">
+                
+                </div>
+            </div>
+            
+            <div id="todo_container">
                 <div>
-                    <h2>ToDo Lists:</h2>
-                    <ul id="list_todos">
-                    </ul>
+                    <h3 class="todo_title">ToDo's</h3>
+                    <div id="todo_list">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <footer>
-        <button class="btn" id="remove_list"> Remove Checked</button>
+        <button class="btn" id="remove"> Remove Checked</button>
     </footer>
 </body>
 
