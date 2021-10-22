@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const description = e.target.new_todo.value
         const priority = e.target.priority_select.value
-        buildToDo(priority,description);
+        const dueDate = e.target.dueDate.value
+        buildToDo(priority,description,dueDate);
         form.reset();
     })
     const edit = document.querySelector('#edit')
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function buildToDo(priority_level,toDo) {
+function buildToDo(priority_level,toDo,dueDate) {
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.setAttribute("class","todo_box")
@@ -49,7 +50,7 @@ function buildToDo(priority_level,toDo) {
 
     
 
-    todoList.push([priority_level,listItem])
+    todoList.push([priority_level,listItem,dueDate])
     displayToDoList();
 }
 
